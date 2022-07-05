@@ -1,5 +1,3 @@
-import connection from "../database.js";
-import jwt from "jsonwebtoken";
 import { authService } from "../services/authService.js";
 
 export const signUp = async (req, res) => {
@@ -9,7 +7,7 @@ export const signUp = async (req, res) => {
 };
 
 export const signIn = async (req, res) => {
-    const { email, password } = req.body;
-    const token = await authService.signIn(email, password);
-    res.send({ token });
+  const { email, password } = req.body;
+  const token = await authService.signIn(email, password);
+  res.send({ token });
 };

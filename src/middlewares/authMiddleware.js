@@ -1,5 +1,7 @@
 import { userRepository } from "../repositories/userRepository.js";
 import bcrypt from "bcrypt";
+import jwt from "jsonwebtoken";
+import '../setup.js';
 
 export const checkIfEmailIsTaken = async (req, res, next) => {
   const { email } = req.body;
@@ -38,4 +40,19 @@ export const checkPassword = async (req, res, next) => {
     };
   }
   next();
-}
+};
+
+export const checkifUserIsAuthenticated = async (req, res, next) => {
+  const authorization = req.headers.authorization || "";
+  const token = authorization.replace("Bearer ", "");
+
+  if (!token) {
+    throw {
+      type: "unauthorized",
+      message: "Unauthorized",
+    };
+  }
+  const user = jwt.verify(token, process.env.JWT_SECRET); 
+  res.locals.user = user;
+  next();
+};

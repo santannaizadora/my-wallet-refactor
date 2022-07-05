@@ -23,6 +23,24 @@ export const errorHandler = (err, req, res, next) => {
       message: err.message,
     });
   }
+
+  if (err.type === "unauthorized") {
+    return res.status(401).send({
+      message: err.message,
+    });
+  }
+
+  if (err.type === "invalid_type") {
+    return res.status(422).send({
+      message: err.message,
+    });
+  }
+
+  if (err.type === "invalid_value") {
+    return res.status(422).send({
+      message: err.message,
+    });
+  }
   
   return res.status(500).send({
     message: "Something went wrong",
