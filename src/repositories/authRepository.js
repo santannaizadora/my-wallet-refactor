@@ -7,8 +7,6 @@ const signUp = async (name, email, password) => {
   );
 }
 
-
-
 export const authRepository = {
   signUp,
 };

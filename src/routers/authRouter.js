@@ -1,9 +1,10 @@
 import { Router } from "express";
-import { signUp } from "../controllers/authController.js";
-import { checkIfUsersExists } from "../middlewares/authMiddleware.js";
+import { signUp, signIn } from "../controllers/authController.js";
+import { checkIfUsersExists, checkIfEmailIsTaken, checkPassword } from "../middlewares/authMiddleware.js";
 
 const router = Router();
 
-router.post("/sign-up", checkIfUsersExists, signUp);
+router.post("/sign-up", checkIfEmailIsTaken, signUp);
+router.post("/sign-in", checkIfUsersExists, checkPassword, signIn);
 
 export default router;
